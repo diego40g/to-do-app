@@ -6,37 +6,6 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: LoginDocker
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build application
-        run: npm run build
-
-      - name: Push docker image
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: dipaz/kanban-dashboard:latest
-
   deploy-to-prod:
     runs-on: ubuntu-latest
     needs: build-and-test
@@ -52,10 +21,12 @@ jobs:
           aws eks update-kubeconfig --name eks-grupo0 --alias eks-grupo4 --region ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Apply deploy EKS
         run: |
-          kubectl apply -f ../k8s/deployment.yml -n grupo4
+          kubectl delete deployments kanban-grupo4 -n grupo4
+          kubectl apply -f ./k8s/deployment.yml -n grupo4
       - name: Apply service EKS
         run: |
-          kubectl apply -f ../k8s/service.yml -n grupo4
+          kubectl delete service kanban-grupo4 -n grupo4
+          kubectl apply -f ./k8s/service.yml -n grupo4
 
 
 
