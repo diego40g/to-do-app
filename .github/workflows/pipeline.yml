@@ -33,7 +33,9 @@ jobs:
           docker build -t dipaz/kanban-dashboard:latest .
           docker tag dipaz/kanban-dashboard:latest dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
       - name: Push docker image
-        run: docker push dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
+        run: |
+          docker push dipaz/kanban-dashboard
+          docker push dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
     
 
   deploy-to-prod:
