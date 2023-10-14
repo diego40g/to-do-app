@@ -34,7 +34,7 @@ jobs:
           docker tag dipaz/kanban-dashboard:latest dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
       - name: Push docker image
         run: |
-          docker push dipaz/kanban-dashboard
+          docker push dipaz/kanban-dashboard:latest
           docker push dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
     
 
