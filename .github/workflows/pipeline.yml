@@ -28,11 +28,6 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Build docker image
-        run: |
-          docker build -t dipaz/kanban-dashboard:latest .
-          docker tag dipaz/kanban-dashboard:latest dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
-
       - name: Push docker image
         id: docker_build
         uses: docker/build-push-action@v2
