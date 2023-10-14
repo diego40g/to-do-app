@@ -25,9 +25,10 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t dipaz/kanban-dashboard:latest .
+          docker tag dipaz/kanban-dashboard:latest dipaz/kanban-dashboard:$(date +'%Y%m%d%H%M%S')
 
       - name: Push docker image
-        run: docker push dipaz/kanban-dashboard
+        run: docker push dipaz/kanban-dashboard:latest
         env: 
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
