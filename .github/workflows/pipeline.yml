@@ -25,7 +25,6 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t dipaz/kanban-dashboard:latest .
-          docker tag dipaz/kanban-dashboard:latest
 
       - name: Push docker image
         run: docker push dipaz/kanban-dashboard
