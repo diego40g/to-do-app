@@ -15,7 +15,7 @@ spec:
    spec:
      containers:
        - name: kanban
-         image: dipaz/kanban-dashboard:v1.0
+         image: dipaz/kanban-dashboard:latest
          ports:
            - containerPort: 3000
          livenessProbe:
