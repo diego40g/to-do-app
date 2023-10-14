@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: kanban-grupo4
+ namespace: grupo4
+spec:
+ replicas: 3
+ selector:
+   matchLabels:
+     app: kanban
+ template:
+   metadata:
+     labels:
+       app: kanban
+   spec:
+     containers:
+       - name: kanban
+         image: dipaz/kanban-dashboard:v1.0
+         ports:
+           - containerPort: 3000
+         livenessProbe:
+           httpGet:
+             path: /
+             port: 3000
+           initialDelaySeconds: 180
+           periodSeconds: 10
